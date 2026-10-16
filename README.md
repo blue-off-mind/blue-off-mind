@@ -21,6 +21,8 @@
 
 <p align="center"><a href="https://github.com/blue-off-mind/youfu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-0-dark.svg"><img src="assets/repo-0-light.svg" width="412" alt="youfu：Windows 桌面语音助手：幽浮。鼠标侧键按住说话，松开发送，alt键附加桌面截图"></picture></a><a href="https://github.com/blue-off-mind/c-drive-cleaner"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-1-dark.svg"><img src="assets/repo-1-light.svg" width="412" alt="c-drive-cleaner：Codex Skill for auditing Windows C drive usage and safe cleanup planning."></picture></a></p>
 
+<p align="center"><sub>源码 Source：<a href="https://github.com/blue-off-mind/shui-yu-huozi">碧水洗字 · shui-yu-huozi</a></sub></p>
+
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/flag-04-dark.svg"><img src="assets/flag-04-light.svg" width="824" alt="04 版面 Contributions"></picture></p>
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/blue-off-mind/blue-off-mind/output/snake-dark.svg"><img src="https://raw.githubusercontent.com/blue-off-mind/blue-off-mind/output/snake-light.svg" width="824" alt="贡献图被一条贪吃蛇吃掉的动画"></picture></p>
