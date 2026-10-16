@@ -1,0 +1,57 @@
+name: 排版 Typeset
+
+on:
+  schedule:
+    - cron: "23 16 * * *" # 北京时间每天 00:23；每月 1 号这一跑就换新一期
+  workflow_dispatch:
+  pull_request: # 只排版检查，不提交
+
+permissions:
+  contents: write
+
+concurrency:
+  group: typeset-${{ github.ref }}
+
+jobs:
+  typeset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+
+      - run: pip install -r scripts/requirements.txt
+
+      # 思源宋体一个字重 15MB，缓存起来不用每天下载
+      - uses: actions/cache@v6
+        with:
+          path: .cache/fonts
+          key: fonts-${{ hashFiles('scripts/typeset.py') }}
+          restore-keys: fonts-
+
+      - name: 排版
+        env:
+          BLOG_SUPABASE_KEY: ${{ secrets.BLOG_SUPABASE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/build.py
+
+      - name: 排版结果和仓库里的差异
+        if: github.event_name == 'pull_request'
+        run: git status --short
+
+      - name: 有变化才提交
+        if: github.event_name != 'pull_request'
+        run: |
+          git add -A README.md assets
+          if git diff --cached --quiet; then
+            echo "版面没有变化"
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "chore: 排版 $(TZ=Asia/Shanghai date +%F)"
+          git push

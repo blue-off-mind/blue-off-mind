@@ -1,0 +1,33 @@
+name: 贪吃蛇 Snake
+
+on:
+  schedule:
+    - cron: "41 16 * * *" # 北京时间每天 00:41
+  workflow_dispatch:
+  pull_request: # 只生成检查，不推送
+    paths: [.github/workflows/snake.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  snake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # 格子用墨色由浅到深，蛇用编辑红，和版面同一套颜色
+      - uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-light.svg?color_snake=#b22922&color_dots=#efece4,#d9d5c9,#a8a294,#6b675c,#191814
+            dist/snake-dark.svg?color_snake=#ee6b5f&color_dots=#1f1e1a,#3a3832,#6b675c,#a8a294,#ece9e0
+
+      # 生成结果放在 output 分支，不让每天的蛇污染 main 的历史
+      - uses: crazy-max/ghaction-github-pages@v5
+        if: github.event_name != 'pull_request'
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
