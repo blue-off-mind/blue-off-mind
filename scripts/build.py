@@ -551,7 +551,7 @@ def main() -> None:
         sys.exit("博客一篇文章都没拉到，这一期不排")
     contributions = fetch_contributions(token, today)
     repos = fetch_repos(token, REPOS)
-    sources = fetch_repos(token, [isle[5] for isle in ISLES])
+    sources = {r.name: r for r in fetch_repos(token, [isle[5] for isle in ISLES])}  # 没公开的站点仓库自动略过
     issue = Issue(today, articles, contributions)
 
     ASSETS.mkdir(exist_ok=True)
@@ -603,9 +603,9 @@ def main() -> None:
     isles = "".join(picture(f"isle-{i}", f"{name} · {host}", [275, 274, 275][i], href) for i, (_, name, _, host, href, _) in enumerate(ISLES))
     repo_row = "".join(picture(f"repo-{i}", f"{r.name}：{r.description}", W / 2, r.url) for i, r in enumerate(repos))
     source_line = ""
-    if sources:
-        links = " · ".join(f'<a href="{s.url}">{s.name}</a>' for s in sources)
-        source_line = f'\n<p align="center"><sub>三站源码 Source：{links}</sub></p>\n'
+    links = [f'<a href="{sources[repo].url}">{name} · {repo}</a>' for _, name, _, _, _, repo in ISLES if repo in sources]
+    if links:
+        source_line = f'\n<p align="center"><sub>源码 Source：{"　".join(links)}</sub></p>\n'
     snake = (
         f'<picture><source media="(prefers-color-scheme: dark)" srcset="{SNAKE}-dark.svg">'
         f'<img src="{SNAKE}-light.svg" width="{W}" alt="贡献图被一条贪吃蛇吃掉的动画"></picture>'
