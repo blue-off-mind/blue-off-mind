@@ -3,7 +3,7 @@
   这个文件由 scripts/build.py 生成，GitHub Actions 每天重新排版一次。要改版面请改脚本，别直接改这里。
 -->
 
-<p align="center"><a href="https://wuyusblog.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/masthead-dark.svg"><img src="assets/masthead-light.svg" width="824" alt="星岛月报 Starry Isle Monthly · 2026 年第 10 期 · October 2026"></picture></a></p>
+<p align="center"><a href="https://wuyusblog.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/masthead-dark.svg"><img src="assets/masthead-light.svg" width="824" alt="星岛月报 Starry Isle Monthly · 2026 年第 11 期 · November 2026"></picture></a></p>
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/motto-dark.svg"><img src="assets/motto-light.svg" width="824" alt="to define is to limit"></picture></p>
 
